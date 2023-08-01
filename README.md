@@ -1,18 +1,184 @@
-# Vue 3 + TypeScript + Vite
+# Example
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+```vue
+<script setup lang="ts">
+import { onMounted } from "vue";
+import { usePlyrVue, PlyrVue } from "plyr-vue";
 
-## Recommended IDE Setup
+const [registerVideoPlayer, videoPlayerInstance] = usePlyrVue({
+  options: {
+    loop: { active: true },
+  },
+});
+const [registerIframePlayer, iframePlayerInstance] = usePlyrVue();
+const [registerAudioPlayer, iframeAudioInstance] = usePlyrVue();
+const [registerVideoPlayerTemplate] = usePlyrVue();
+const [registerIframePlayerTemplate] = usePlyrVue();
+const [registerAudioPlayerTemplate] = usePlyrVue();
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+onMounted(() => {
+  initVideoPlayer();
+  initIframePlayer();
+  initAudioPlayer();
+});
 
-## Type Support For `.vue` Imports in TS
+const initVideoPlayer = () => {
+  if (!videoPlayerInstance.value) return;
+  videoPlayerInstance.value.source = {
+    type: "video",
+    title: "Example title",
+    sources: [
+      {
+        src: "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4",
+        type: "video/mp4",
+        size: 576,
+      },
+      {
+        src: "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4",
+        type: "video/mp4",
+        size: 720,
+      },
+      {
+        src: "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4",
+        type: "video/mp4",
+        size: 1080,
+      },
+      {
+        src: "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1440p.mp4",
+        type: "video/mp4",
+        size: 1440,
+      },
+    ],
+    poster:
+      "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg",
+    tracks: [
+      {
+        kind: "captions",
+        label: "English",
+        srcLang: "en",
+        src: "/path/to/captions.en.vtt",
+        default: true,
+      },
+      {
+        kind: "captions",
+        label: "French",
+        srcLang: "fr",
+        src: "/path/to/captions.fr.vtt",
+      },
+    ],
+  };
+  videoPlayerInstance.value.play();
+};
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+const initIframePlayer = () => {
+  if (!iframePlayerInstance.value) return;
+  iframePlayerInstance.value.source = {
+    type: "video",
+    sources: [
+      {
+        src: "https://www.youtube.com/embed/bTqVqk7FSmY?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1",
+        provider: "youtube",
+      },
+    ],
+  };
+};
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+const initAudioPlayer = () => {
+  if (!iframeAudioInstance.value) return;
+  iframeAudioInstance.value.source = {
+    type: "audio",
+    title: "Example title",
+    sources: [
+      {
+        src: "/path/to/audio.mp3",
+        type: "audio/mp3",
+      },
+      {
+        src: "/path/to/audio.ogg",
+        type: "audio/ogg",
+      },
+    ],
+  };
+};
+</script>
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+<template>
+  <div>
+    <h1>Video</h1>
+    <plyr-vue @register="registerVideoPlayer" />
+    <h1>Iframe</h1>
+    <plyr-vue @register="registerIframePlayer" />
+    <h1>Audio</h1>
+    <plyr-vue @register="registerAudioPlayer" />
+    <h1>Video Template</h1>
+    <plyr-vue @register="registerVideoPlayerTemplate">
+      <video
+        controls
+        playsinline
+        poster="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg"
+      >
+        <!-- Video files -->
+        <source
+          src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4"
+          type="video/mp4"
+          size="576"
+        />
+        <source
+          src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4"
+          type="video/mp4"
+          size="720"
+        />
+        <source
+          src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4"
+          type="video/mp4"
+          size="1080"
+        />
+        <source
+          src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1440p.mp4"
+          type="video/mp4"
+          size="1440"
+        />
+
+        <!-- Caption files -->
+        <track
+          kind="captions"
+          label="English"
+          srclang="en"
+          src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt"
+          default
+        />
+        <track
+          kind="captions"
+          label="Français"
+          srclang="fr"
+          src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt"
+        />
+        <a
+          href="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4"
+          download
+          >Download</a
+        >
+      </video>
+    </plyr-vue>
+    <h1>Iframe Template</h1>
+    <plyr-vue @register="registerIframePlayerTemplate">
+      <!-- We have to wrap a div to use with an iframe -->
+      <div>
+        <iframe
+          src="https://www.youtube.com/embed/bTqVqk7FSmY?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
+          allowfullscreen
+          allowtransparency
+          allow="autoplay"
+        />
+      </div>
+    </plyr-vue>
+    <h1>Audio Template</h1>
+    <plyr-vue @register="registerAudioPlayerTemplate">
+      <audio>
+        <source src="/path/to/audio.mp3" type="audio/mp3" />
+        <source src="/path/to/audio.ogg" type="audio/ogg" />
+      </audio>
+    </plyr-vue>
+  </div>
+</template>
+```

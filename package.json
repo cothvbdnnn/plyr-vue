@@ -1,7 +1,23 @@
 {
   "name": "plyr-vue",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "description": "A simple, accessible and customizable HTML5, YouTube and Vimeo media player for Vue",
+  "homepage": "https://github.com/cothvbdnnn/plyr-vue#readme",
+  "author": "Kuu",
   "type": "module",
+  "keywords": [
+    "HTML5 Video",
+    "HTML5 Audio",
+    "Media Player",
+    "HLS",
+    "Plyr",
+    "Vue"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com//cothvbdnnn/plyr-vue"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
