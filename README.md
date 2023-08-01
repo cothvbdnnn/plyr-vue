@@ -4,6 +4,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { usePlyrVue, PlyrVue } from "plyr-vue";
+import "plyr-vue/dist/plyr-vue.css";
 
 const [registerVideoPlayer, videoPlayerInstance] = usePlyrVue({
   options: {
