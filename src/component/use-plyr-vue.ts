@@ -1,41 +1,38 @@
 import Plyr from 'plyr';
 import { getCurrentInstance, ref, unref } from 'vue';
 
-import { PlyrVueInstance, PlyrVueProps, UsePlayerReturnType, Nullable } from './types';
+import { PlyrVueInstance, PlyrVueOptions, UsePlayerReturnType, Nullable } from './types';
 import { tryOnUnmounted, deepMerge } from './helper';
 
-export function usePlyrVue(props?: PlyrVueProps): UsePlayerReturnType {
+export function usePlyrVue(props?: PlyrVueOptions): UsePlayerReturnType {
   if (!getCurrentInstance()) {
-    throw new Error('usePlayer() can only be used inside setup() or functional components!');
+    throw new Error('useVuePlyr() can only be used inside setup() or functional components!');
   }
-  const player = ref<Nullable<PlyrVueInstance>>(null);
+  const playerInstance = ref<PlyrVueInstance>({} as PlyrVueInstance);
   const playerElement = ref<Nullable<HTMLElement>>(null);
   const loaded = ref<Nullable<boolean>>(false);
   const uid = ref<string>('');
-  const propsRef = ref<Partial<PlyrVueProps>>({
-    options: {
-      tooltips: {
-        controls: true
-      }
+  const propsRef = ref<Partial<PlyrVueOptions>>({
+    tooltips: {
+      controls: true
     }
   });
 
-  function register(playerInstance: HTMLElement, uuid: string): void {
+  function register(playerRef: HTMLElement, uuid: string): void {
     tryOnUnmounted(() => {
-      player.value?.destroy();
-      player.value = null;
+      playerInstance.value?.destroy();
       loaded.value = null;
     });
 
-    if (unref(loaded) && playerInstance === unref(playerElement)) {
+    if (unref(loaded) && playerRef === unref(playerElement)) {
       return;
     }
     uid.value = uuid;
     propsRef.value = deepMerge(unref(propsRef), props);
-    playerElement.value = playerInstance;
-    player.value = new Plyr(playerInstance, unref(propsRef).options);
+    playerElement.value = playerRef;
+    playerInstance.value = new Plyr(playerRef, unref(propsRef));
     loaded.value = true;
   }
 
-  return [register, player];
+  return [register, playerInstance];
 }

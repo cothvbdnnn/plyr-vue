@@ -4,12 +4,9 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { usePlyrVue, PlyrVue } from "plyr-vue";
-import "plyr-vue/dist/plyr-vue.css";
 
 const [registerVideoPlayer, videoPlayerInstance] = usePlyrVue({
-  options: {
-    loop: { active: true },
-  },
+  loop: { active: true },
 });
 const [registerIframePlayer, iframePlayerInstance] = usePlyrVue();
 const [registerAudioPlayer, iframeAudioInstance] = usePlyrVue();
@@ -24,7 +21,6 @@ onMounted(() => {
 });
 
 const initVideoPlayer = () => {
-  if (!videoPlayerInstance.value) return;
   videoPlayerInstance.value.source = {
     type: "video",
     title: "Example title",
@@ -72,7 +68,6 @@ const initVideoPlayer = () => {
 };
 
 const initIframePlayer = () => {
-  if (!iframePlayerInstance.value) return;
   iframePlayerInstance.value.source = {
     type: "video",
     sources: [
@@ -85,7 +80,6 @@ const initIframePlayer = () => {
 };
 
 const initAudioPlayer = () => {
-  if (!iframeAudioInstance.value) return;
   iframeAudioInstance.value.source = {
     type: "audio",
     title: "Example title",
