@@ -1,6 +1,6 @@
 {
   "name": "plyr-vue",
-  "version": "1.0.6",
+  "version": "2.3.8",
   "description": "A simple, accessible and customizable HTML5, YouTube and Vimeo media player for Vue",
   "homepage": "https://github.com/cothvbdnnn/plyr-vue#readme",
   "author": "Kuu",
@@ -15,17 +15,25 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com//cothvbdnnn/plyr-vue"
+    "url": "git://github.com/cothvbdnnn/plyr-vue"
   },
-  "main": "dist/plyr-vue.mjs",
-  "module": "dist/plyr-vue.umd.js",
-  "style": "dist/plyr-vue.css",
+  "type": "module",
+  "main": "./dist/plyr-vue.umd.cjs",
+  "module": "./dist/plyr-vue.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/plyr-vue.js",
+      "require": "./dist/plyr-vue.umd.cjs"
+    },
+    "./dist/plyr-vue.css": "./dist/plyr-vue.css"
+  },
   "files": [
     "dist"
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build": "vite build && vue-tsc --emitDeclarationOnly",
     "preview": "vite preview"
   },
   "dependencies": {

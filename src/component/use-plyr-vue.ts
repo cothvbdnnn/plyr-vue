@@ -2,7 +2,7 @@ import Plyr from 'plyr';
 import { getCurrentInstance, ref, unref } from 'vue';
 
 import { PlyrVueInstance, PlyrVueOptions, UsePlayerReturnType, Nullable } from './types';
-import { tryOnUnmounted, deepMerge } from './helper';
+import { tryOnUnmounted } from './helper';
 
 export function usePlyrVue(props?: PlyrVueOptions): UsePlayerReturnType {
   if (!getCurrentInstance()) {
@@ -12,11 +12,6 @@ export function usePlyrVue(props?: PlyrVueOptions): UsePlayerReturnType {
   const playerElement = ref<Nullable<HTMLElement>>(null);
   const loaded = ref<Nullable<boolean>>(false);
   const uid = ref<string>('');
-  const propsRef = ref<Partial<PlyrVueOptions>>({
-    tooltips: {
-      controls: true
-    }
-  });
 
   function register(playerRef: HTMLElement, uuid: string): void {
     tryOnUnmounted(() => {
@@ -28,9 +23,8 @@ export function usePlyrVue(props?: PlyrVueOptions): UsePlayerReturnType {
       return;
     }
     uid.value = uuid;
-    propsRef.value = deepMerge(unref(propsRef), props);
     playerElement.value = playerRef;
-    playerInstance.value = new Plyr(playerRef, unref(propsRef));
+    playerInstance.value = new Plyr(playerRef, props);
     loaded.value = true;
   }
 

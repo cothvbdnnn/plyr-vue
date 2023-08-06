@@ -8,15 +8,15 @@ export default defineConfig({
     lib: {
       entry: 'src/index.ts', // Change this to the correct entry point
       name: 'plyr-vue', // Replace with your library name
+      fileName: 'plyr-vue',
     },
     rollupOptions: {
-      // Make sure to externalize Vue to reduce the bundle size
       external: ['vue'],
       output: {
         globals: {
           vue: 'Vue', // External dependency name and corresponding global variable
         },
-        assetFileNames: 'plyr-vue.[ext]', // Rename style.css to plyr-vue.css
+        assetFileNames: 'plyr-vue.[ext]',
       },
     },
   },

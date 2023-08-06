@@ -3,7 +3,7 @@ import { Ref } from 'vue';
 
 export type RegisterFn = (playerRef: HTMLElement, uid: string) => void;
 
-export type UsePlayerReturnType = [RegisterFn, Ref<Nullable<PlyrVueInstance>>];
+export type UsePlayerReturnType = [RegisterFn, Ref<PlyrVueInstance>];
 
 export interface PlyrVueOptions extends Options {}
 
