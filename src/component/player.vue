@@ -1,11 +1,3 @@
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  // component options
-});
-</script>
-
 <script setup lang="ts">
 import { getCurrentInstance, onMounted, Ref, ref, unref } from "vue";
 import { Nullable } from "./types.js";
