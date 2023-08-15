@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getCurrentInstance, onMounted, Ref, ref, unref } from "vue";
-import { Nullable } from "./types.js";
+import { Nullable } from "./types";
 
 defineOptions({
   name: "PlyrVue",
