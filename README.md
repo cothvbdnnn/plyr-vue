@@ -1,4 +1,33 @@
-# Import
+## Introduction
+
+Plyr Vue is a flexible and customizable Vue component designed to seamlessly integrate Plyr's features into your Vue applications. With Plyr Vue, you can effortlessly manage and enhance the playback experience of videos, audios, and iframes.
+
+## Installation
+
+To start using Plyr Vue, you need to install the package via your preferred package manager:
+
+```bash
+npm install plyr-vue
+# or
+yarn add plyr-vue
+# or
+pnpm add plyr-vue
+```
+
+Or as a script tag:
+
+```html
+<script src="https://unpkg.com/plyr-vue/dist/plyr-vue.js"></script>
+<script src="https://unpkg.com/plyr-vue/dist/plyr-vue.css"></script>
+```
+
+## Getting Started
+
+To begin using Plyr Vue, follow these steps:
+
+### Importing
+
+First, import the necessary components and types from the Plyr Vue library:
 
 ```js
 import { usePlyrVue, PlyrVue } from "plyr-vue";
@@ -6,21 +35,39 @@ import type { PlyrVueOptions, PlyrVueInstance } from "plyr-vue";
 import "plyr-vue/dist/plyr-vue.css";
 ```
 
-# Usage
+### Initialization
 
-## usePlyrVue
+Use the usePlyrVue hook to initialize a Plyr player instance. This hook returns a registration function and a reference to the Plyr player instance:
 
-You can pass options to the hook, and the hook will return an initial callback function and a player instance
-
-```js
-usePlyrVue(options: PlyrVueOptions): [RegisterFunction, Ref<PlyrVueInstance>]
+```ts
+const [registerFunction, playerInstance]:  = usePlyrVue(options: PlyrVueOptions);
 ```
 
-You can see more about [PlyrVueOptions](https://github.com/sampotts/plyr#initializing) and [PlyrVueInstance](https://github.com/sampotts/plyr#initializing)
+### Integration
 
-## Video
+Integrate the Plyr Vue component into your Vue template:
 
-### Instance
+```html
+<template>
+  <plyr-vue @register="registerFunction">
+    <!-- Your media element (video, audio, iframe) goes here -->
+  </plyr-vue>
+</template>
+```
+
+You can see more about [PlyrVueOptions](https://github.com/sampotts/plyr#initializing) and [PlyrVueInstance](https://github.com/sampotts/plyr#methods)
+
+## Usage
+
+### Video
+
+Plyr Vue allows you to create interactive video players effortlessly. Customize the playback experience by specifying various options.
+
+#### Instance
+
+This example shows how to use the usePlyrVue hook to create a video player instance.
+
+You can read more about [.source](https://github.com/sampotts/plyr#the-source-setter)
 
 ```ts
 <script setup lang="ts">
@@ -70,11 +117,17 @@ const initVideoPlayer = () => {
 </template>
 ```
 
-### Template
+#### Template
+
+This example demonstrates how to create a video player using the HTML5 media element.
+
+You can read more about [HTML5 media element](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement)
 
 ```ts
 <script setup lang="ts">
-const [registerVideoPlayer] = usePlyrVue();
+const [registerVideoPlayer] = usePlyrVue({
+  loop: { active: true },
+});
 </script>
 
 <template>
@@ -98,8 +151,8 @@ const [registerVideoPlayer] = usePlyrVue();
       />
       <track
         kind="captions"
-        label="Français"
-        srcLang="fr"
+        label="Vietnamese"
+        srcLang="vi"
         src=""
       />
     </video>
@@ -107,9 +160,13 @@ const [registerVideoPlayer] = usePlyrVue();
 </template>
 ```
 
-## Iframe
+### Iframe
 
-### Instance
+Integrate responsive iframes with customized settings using Plyr Vue's iframe component. Control embedded content seamlessly.
+
+#### Instance
+
+This example shows how to create an iframe player instance.
 
 ```ts
 <script setup lang="ts">
@@ -136,7 +193,9 @@ const initIframePlayer = () => {
 </template>
 ```
 
-### Template
+#### Template
+
+This example demonstrates how to create an iframe player within a div.
 
 ```ts
 <script setup lang="ts">
@@ -158,9 +217,13 @@ const [registerIframePlayer] = usePlyrVue();
 </template>
 ```
 
-## Audio
+### Audio
 
-### Instance
+Enhance audio playback in your Vue applications with Plyr Vue's audio component. Configure audio-specific options to suit your needs.
+
+#### Instance
+
+This example shows how to create an audio player instance.
 
 ```ts
 <script setup lang="ts">
@@ -192,7 +255,9 @@ const initAudioPlayer = () => {
 </template>
 ```
 
-### Template
+#### Template
+
+This example demonstrates how to create an audio player using the HTML5 audio element.
 
 ```ts
 <script setup lang="ts">
@@ -209,6 +274,6 @@ const [registerAudioPlayer] = usePlyrVue();
 </template>
 ```
 
-# Plyr related options
+## Plyr related options
 
 See plyr [documentation](https://github.com/sampotts/plyr#initializing) for all possible options & methods.

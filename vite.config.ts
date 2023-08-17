@@ -6,15 +6,15 @@ export default defineConfig({
   build: {
     target: 'esnext',
     lib: {
-      entry: 'src/index.ts', // Change this to the correct entry point
-      name: 'plyr-vue', // Replace with your library name
+      entry: 'src/index.ts',
+      name: 'plyr-vue',
       fileName: 'plyr-vue',
     },
     rollupOptions: {
       external: ['vue'],
       output: {
         globals: {
-          vue: 'Vue', // External dependency name and corresponding global variable
+          vue: 'Vue',
         },
         assetFileNames: 'plyr-vue.[ext]',
       },
