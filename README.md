@@ -1,6 +1,12 @@
 ## Introduction
 
+<p align="center">
+<img width="300px" src="https://raw.githubusercontent.com/cothvbdnnn/plyr-vue/master/src/assets/logo.png">
+</p>
+
 Plyr Vue is a flexible and customizable Vue component designed to seamlessly integrate Plyr's features into your Vue applications. With Plyr Vue, you can effortlessly manage and enhance the playback experience of videos, audios, and iframes.
+
+![plyr-vue-example](https://raw.githubusercontent.com/cothvbdnnn/plyr-vue/master/src/assets/plyr-vue.png)
 
 ## Installation
 
@@ -40,7 +46,7 @@ import "plyr-vue/dist/plyr-vue.css";
 Use the usePlyrVue hook to initialize a Plyr player instance. This hook returns a registration function and a reference to the Plyr player instance:
 
 ```ts
-const [registerFunction, playerInstance]:  = usePlyrVue(options: PlyrVueOptions);
+const [registerFunction, playerInstance] = usePlyrVue(options: PlyrVueOptions);
 ```
 
 ### Integration
